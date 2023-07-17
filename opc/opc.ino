@@ -8,5 +8,5 @@ int number = 0;
 void loop() {
   Serial.println(analogRead(0));
 
-  delay(250);
+  delay(1);
 }
