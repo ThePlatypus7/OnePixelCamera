@@ -35,7 +35,6 @@ if arduinoConnected:
         arduinoConnected = False
         print("Arduino not connected or wrong Port")
 
-
 if arduinoConnected:
     #collecting live data from arduino
     while i > 0:
@@ -55,7 +54,7 @@ maximum = max(values)
 for k in range(len(values)):
     values[int(k)] = int((values[int(k)] - minimum) * (255 - 0) / (maximum - minimum) + 0)
  
-values = np.sort(values)
+#values = np.sort(values)
  
 for x in range(width):
     for y in range(height):
