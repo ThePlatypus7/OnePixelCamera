@@ -1,5 +1,7 @@
 # OnePixelCamera
 
+Dieses Projekt zielt darauf ab, eine Kamera zu entwickeln, die mithilfe eines Phototransistors die Helligkeit an einem bestimmten Punkt im Raum erfasst. Um ein vollständiges Bild zu erstellen, wird der Phototransistor mithilfe von Steppermotoren oder Servos gedreht. Sowohl der Phototransistor als auch die Motoren werden von einem Microcontroller gesteuert.
+
 ## Mechanik & Elektrik
 
 ### 1. Festlegung der Anforderungen
