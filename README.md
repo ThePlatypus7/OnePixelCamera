@@ -18,3 +18,22 @@
 ## (Optik)
 
 ## Software
+
+
+#### Computer
+
+- Auschwenkung der Kamera eingeben
+- Daten via UART senden
+- Bilddaten via UART empfangen
+- (eventuell daten via SD-Karte einlesen)
+- Bilddaten mit Bildverarbeitungsalgorithmen bearbeiten
+- Bild anzeigen
+- Bild speichern
+
+
+#### Microcontroller
+
+- Auschwenkdaten empfangen
+- Servos ansteuern und Bildaufnahme starten
+- Daten an Computer senden
+- (eventuell Daten auf SD-Karte speichern)
