@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import *
-from PyQt6.QtGui import QPixmap, QImage
+from PyQt6.QtGui import QPixmap, QImage, QColor
 from PyQt6.QtCore import QDir
 import os
 
@@ -43,21 +43,20 @@ class Ui:
         self.window.show()
         self.app.exec()
         
-    def showImage(self, width, height, values):
+    def showImage(self, width, height, red_values, green_values, blue_values):
         self.window = QWidget()
 
         self.layout = QGridLayout()
-        self.image = QPixmap(width, height)
+        self.image = QImage(width, height, QImage.Format.Format_RGB888)
 
-        # Convert grayscale values to bytes
-        bytes_data = bytes(values)
+        # Combine red, green, and blue channels to create a colored image
+        for y in range(height):
+            for x in range(width):
+                color = QColor(red_values[y * width + x], green_values[y * width + x], blue_values[y * width + x])
+                self.image.setPixelColor(x, y, color)
 
-        # Create a QImage from the grayscale values
-        image = QImage(bytes_data, width, height, QImage.Format.Format_Grayscale8)
-
-        self.image.convertFromImage(image)
         self.label = QLabel()
-        self.label.setPixmap(self.image)
+        self.label.setPixmap(QPixmap.fromImage(self.image))
 
         self.layout.addWidget(self.label, 0, 0)
 

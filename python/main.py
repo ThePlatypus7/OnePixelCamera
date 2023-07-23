@@ -1,4 +1,3 @@
-#from time import sleep
 from PIL import Image
 import numpy as np
 import random
@@ -28,7 +27,9 @@ width, height = gui.startWindow()
 img=np.zeros([height,width])
 
 i = width * height
-values = [0] * i
+rValues = [0] * i
+gValues = [0] * i
+bValues = [0] * i
 
 if arduinoConnected:
     arduPort = ardu.initPort(portNumber)
@@ -43,27 +44,41 @@ if arduinoConnected:
             res = arduPort.readline()
             print(i)
             i -= 1
-            values[i] = res.decode("Ascii")
+            rValues[i] = res.decode("Ascii")
 else:
     #generating random Values
-    for k in range(len(values)):
-        values[int(k)] = random.randint(0,1024)
-        
+    for k in range(len(rValues)):
+        rValues[int(k)] = random.randint(0,1024)
+        gValues[int(k)] = random.randint(0,1024)
+        bValues[int(k)] = random.randint(0,1024)
+
 #gui.recordWindow()
 
-minimum = min(values)
-maximum = max(values)
+minimum = min(rValues)
+maximum = max(rValues)
 
-for k in range(len(values)):
-    values[int(k)] = int((values[int(k)] - minimum) * (255 - 0) / (maximum - minimum) + 0)
- 
-gui.showImage(width, height, values)
- 
- 
+for k in range(len(rValues)):
+    rValues[int(k)] = int((rValues[int(k)] - minimum) * (255 - 0) / (maximum - minimum) + 0)
+
+minimum = min(gValues)
+maximum = max(gValues)
+
+for k in range(len(gValues)):
+    gValues[int(k)] = int((gValues[int(k)] - minimum) * (255 - 0) / (maximum - minimum) + 0)
+
+minimum = min(bValues)
+maximum = max(bValues)
+
+for k in range(len(bValues)):
+    bValues[int(k)] = int((bValues[int(k)] - minimum) * (255 - 0) / (maximum - minimum) + 0)    
+
+gui.showImage(width, height, rValues, gValues, bValues)
+
+
 if showImageInWindowsImageView:
     for x in range(width):
         for y in range(height):
-            img[y,x] = values[y * width + x]
+            img[y,x] = rValues[y * width + x]
         
     img = Image.fromarray(img.astype(np.uint8))
     img.show()
