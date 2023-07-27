@@ -2,14 +2,12 @@ from PIL import Image
 import numpy as np
 import random
 import gui as g
-import arduinoInterface
+import serial
 
 portNumber = 'COM6'
 arduinoConnected = False
 arduPort = -1
 showImageInWindowsImageView = False
-
-ardu = arduinoInterface.arduino()
 
 gui = g.Ui()
 
@@ -31,13 +29,22 @@ rValues = [0] * i
 gValues = [0] * i
 bValues = [0] * i
 
+#try serial connection
 if arduinoConnected:
-    arduPort = ardu.initPort(portNumber)
+    try:
+        arduPort = serial.Serial(portNumber, 9600)
+    except:
+        pass
+        
     if arduPort == -1:
         arduinoConnected = False
         print("Arduino not connected or wrong Port")
 
 if arduinoConnected:
+    #send image size to arduino
+    arduPort.write(width)
+    arduPort.write("\n")
+    arduPort.write(height)
     #collecting live data from arduino
     while i > 0:
         if arduPort.in_waiting > 0:
